@@ -1,3 +1,39 @@
 <template>
-    
+    <lightning-card title="Create Track">
+        <template if:false={condition}>
+            <lightning-record-edit-form object-api-name="Track__c" onsuccess={handleSuccess}>
+                <div class="slds-grid slds-wrap slds-gutters slds-var-p-top_small" >
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Candidate__c" value={recordId} disabled></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2" >
+                        <lightning-input-field field-name="Tracking_Reason__c" onchange={handleTrackingReasonChange} disabled={createdTrack}></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Track_Reminder_Date__c" value={defaultReminderDate} onchange={handleTrackReminderDateChange} disabled={createdTrack}></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Primary_Recruiter__c" value={contactOwnerIdString} disabled={createdTrack}></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Secondary_Recruiter__c" onchange={handleSecondaryRecruiterChange} disabled={createdTrack}></lightning-input-field>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-gutters slds-var-p-top_small">
+                    <div class="slds-col slds-size_1-of-1">
+                        <div class="slds-var-m-top_medium" if:true={createdTrack}>
+                            <lightning-button label="Convert Track" onclick={convertTrack}></lightning-button>
+                            <lightning-button label="Close Track" onclick={closeTrack}></lightning-button>
+                        </div>
+                        <div class="slds-var-m-top_medium" if:false={createdTrack}>
+                            <lightning-button type="submit" label="Create Track"></lightning-button>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </lightning-record-edit-form>
+        </template>
+    </lightning-card>
 </template>

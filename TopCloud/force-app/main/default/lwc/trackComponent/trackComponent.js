@@ -3,36 +3,47 @@ import { getRecord, createRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import TRACK_OBJECT from '@salesforce/schema/Track__c';
 import CANDIDATE_FIELD from '@salesforce/schema/Track__c.Candidate__c';
+import getContactOwnerId from '@salesforce/apex/ContactController.getContactOwnerId';
 
-const FIELDS = [
-    'Contact.Name',
-];
 
-export default class CreatedTrack extends LightningElement {
+export default class trackComponent extends LightningElement {
     @api recordId;
-    candidateName;
-    candidateOwner;
     trackingReason;
     trackReminderDate;
     primaryRecruiter;
     secondaryRecruiter;
     createdTrack = false;
     track;
+    contactOwnerId;
 
-    @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
-    contact;
+    @wire(getRecord, { recordId: '$recordId', fields: ['Contact.Id'] })
+    contactRecord({ error, data }) {
+        if (data) {
+            getContactOwnerId({ contactId: data.fields.Id.value })
+                .then(result => {
+                    this.contactOwnerId = result;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else if (error) {
+            console.error(error);
+        }
+    }
+
+    get isContactRecord() {
+        return this.recordId && this.recordId.startsWith('003');
+    }
+
+    get contactOwnerIdString() {
+        return this.contactOwnerId ? this.contactOwnerId : '';
+    }
 
     get defaultReminderDate() {
         const twoWeeksLater = new Date();
         twoWeeksLater.setDate(twoWeeksLater.getDate() + 14);
         return twoWeeksLater.toISOString().slice(0, 10);
     }
-
-    get candidateName() {
-        return this.contact.data.fields.Name.value;
-    }
-
-    
 
     handleTrackingReasonChange(event) {
         this.trackingReason = event.target.value;

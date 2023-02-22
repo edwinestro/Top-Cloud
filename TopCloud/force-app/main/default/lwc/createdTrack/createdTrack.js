@@ -29,14 +29,6 @@ export default class CreatedTrack extends LightningElement {
         return twoWeeksLater.toISOString().slice(0, 10);
     }
 
-    get candidateName() {
-        return this.contact.data.fields.Name.value;
-    }
-
-    get candidateOwner() {
-        return this.contact.data.fields.OwnerId.value;    
-    }
-
     handleTrackingReasonChange(event) {
         this.trackingReason = event.target.value;
     }
