@@ -1,0 +1,17 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-modal-header label="Ping Reminder"></lightning-modal-header>
+    <lightning-modal-body>
+        <lightning-record-form
+            object-api-name={objectApiName}   
+            fields={modalFields}
+            density="comfy"
+            columns = "2"
+            mode="edit"
+            layout-type="Full"
+            onsuccess={handleSuccess}
+            oncancel={handleCancel}
+        >
+        </lightning-record-form> 
+    </lightning-modal-body>   
+</template>

@@ -1,0 +1,15 @@
+<template>
+    <template if:true={showComponent}>
+        <div>
+            <template if:true={showTrack}>
+                <!--<c-track></c-track>-->
+            </template>
+            <template if:true={showTag}>
+                <p>This is Tag Component</p>
+            </template>
+            <template if:true={showPing}>
+                <p>This is Ping Component</p>
+            </template>
+        </div>
+    </template>
+</template>

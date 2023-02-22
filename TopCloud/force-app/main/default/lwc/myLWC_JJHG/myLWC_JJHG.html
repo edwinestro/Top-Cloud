@@ -1,0 +1,28 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div>
+        <lightning-card title="Ping" icon-name="custom:custom53">  
+            <div class="slds-var-m-around_medium"> <!-- if:true={boolPing}-->
+            <p align="center">You don't have Active Pings</p> <br> <!-- This Lightning Record form shows active pings (pings created) -->
+                <div align="center" class="slds-clearfix">
+                    <button class="slds-button slds-button_brand" onclick={handleClickPing}>Ping Reminder</button>
+                </div>                
+            </div>
+            <div> <!-- This Lightning Record form shows the Ping information after the creation  if:true={boolActivePing}--> 
+                <lightning-record-form              
+                    object-api-name={objectApiName}  
+                    record-id={recordId}
+                    fields={fields}
+                    density="comfy"
+                    columns = "2"
+                    mode="readonly"
+                >    
+                </lightning-record-form>
+                <div align="center" class="slds-clearfix">
+                    <button class="slds-button slds-button_brand">Create Task</button>
+                    <button class="slds-button slds-button_destructive">Close Ping</button>
+                </div>
+            </div>  
+        </lightning-card>
+    </div>
+</template>

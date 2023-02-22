@@ -1,0 +1,27 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-card title="Create Track">
+        <lightning-record-edit-form object-api-name="Track__c" onsuccess={handleSuccess}>
+            <div class="slds-grid slds-wrap slds-gutters slds-p-top_small">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Candidate__c" value={recordId} disabled></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Tracking_Reason__c"></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Track_Reminder_Date__c" value={defaultReminderDate}></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Primary_Recruiter__c" value={candidateOwner} disabled></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Secondary_Recruiter__c"></lightning-input-field>
+                </div>
+            </div>
+            <div class="slds-m-top_medium">
+                <lightning-button type="submit" label="Create Track"></lightning-button>
+            </div>
+        </lightning-record-edit-form>
+    </lightning-card>
+</template>

@@ -1,0 +1,8 @@
+<template>
+    <template if:true={isContactRecord}>
+        <p>Contact Owner Id: {contactOwnerIdString}</p>
+    </template>
+    <template if:false={isContactRecord}>
+        <p>Please open this component on a Contact record page.</p>
+    </template>
+</template>
