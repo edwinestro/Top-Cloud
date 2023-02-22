@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs> <!-- Allows to view the properties on AppBuilder-->
+        <targetConfig targets="lightning__RecordPage">
+            <property name="boolTrack" type="Boolean" label="Track"/>
+            <property name="boolTag" type="Boolean" label="Tag"/>
+            <property name="boolPing" type="Boolean" label="Ping" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
