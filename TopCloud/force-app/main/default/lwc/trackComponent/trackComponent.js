@@ -1,9 +1,12 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, wire  } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 import { getRecord, createRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import TRACK_OBJECT from '@salesforce/schema/Track__c';
 import CANDIDATE_FIELD from '@salesforce/schema/Track__c.Candidate__c';
 import getContactOwnerId from '@salesforce/apex/ContactController.getContactOwnerId';
+//import setPrimaryRecruitmentFlow from '@salesforce/apex/ContactController.setPrimaryRecruitmentFlow';
+
 
 
 export default class trackComponent extends LightningElement {
@@ -16,7 +19,7 @@ export default class trackComponent extends LightningElement {
     track;
     contactOwnerId;
 
-    @wire(getRecord, { recordId: '$recordId', fields: ['Contact.Id'] })
+    @wire(getRecord, { recordId: '$recordId', fields: ['Contact.Id', 'Contact.Recruitment_Flow__c'] })
     contactRecord({ error, data }) {
         if (data) {
             getContactOwnerId({ contactId: data.fields.Id.value })
@@ -73,8 +76,27 @@ export default class trackComponent extends LightningElement {
     }
 
     convertTrack() {
-        // Your conversion logic goes here
-    }
+
+            let fields = {
+                'Contact__c': this.record.fields.Candidate__c.value,
+                'Primary_Recruiter__c': this.record.fields.Primary_Recruiter__c.value,
+                'Secondary_Recruiter__c': this.record.fields.Secondary_Recruiter__c.value,
+                'Tracking_Reason__c': this.record.fields.Tracking_Reason__c.value,
+                'Track_Reminder_Date__c': this.record.fields.Track_Reminder_Date__c.value
+            };
+            let recordInput = { apiName: 'Recruitment_Flow__c', fields };
+            this[NavigationMixin.Navigate]({
+                type: 'standard__recordPage',
+                attributes: {
+                    recordId: null,
+                    objectApiName: 'Recruitment_Flow__c',
+                    actionName: 'edit'
+                },
+                state: {
+                    defaultFieldValues: JSON.stringify(recordInput)
+                }
+            });
+        }    
 
     closeTrack() {
         // Your closing logic goes here
