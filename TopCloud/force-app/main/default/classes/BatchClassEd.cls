@@ -1,4 +1,4 @@
-public class BatchClass implements Database.Batchable<sObject>, Database.stateful{
+public class BatchClassEd implements Database.Batchable<sObject>, Database.stateful{
     public integer recordCount = 0;
 
     //Start Method
